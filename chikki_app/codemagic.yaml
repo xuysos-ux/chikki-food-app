@@ -4,7 +4,23 @@ workflows:
     instance_type: mac_mini_m2
     max_build_duration: 30
     environment:
+      flutter: stableworkflows:
+  android-workflow:
+    name: Android APK Build
+    instance_type: mac_mini_m2
+    max_build_duration: 30
+    working_directory: chikki_app
+    environment:
       flutter: stable
+    scripts:
+      - name: Prepare Android folder
+        script: |
+          flutter create . --platforms=android
+      - name: Build Android APK
+        script: |
+          flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
     scripts:
       - name: Recreate Android folder
         script: |
